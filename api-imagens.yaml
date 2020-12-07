@@ -306,6 +306,56 @@ components:
           type: string
         activate:
           type: string
+    FeaturePropertiesDTO:
+      title: Properties
+      type: object
+      properties:
+        acquired:
+          type: string
+        anomalousPixels:
+          type: number
+        blackFill:
+          type: number
+        cloudCover:
+          type: number
+        columns:
+          type: integer
+        epsgCode:
+          type: integer
+        gridCell:
+          type: integer
+        gsd:
+          type: number
+        instrument:
+          type: string
+        itemType:
+          type: string
+        originX:
+          type: number
+        originY:
+          type: number
+        pixelResolution:
+          type: number
+        provider:
+          type: string
+        published:
+          type: string
+        rows:
+          type: integer
+        satelliteId:
+          type: string
+        sunAzimuth:
+          type: number
+        sunElevation:
+          type: number
+        updated:
+          type: string
+        usableData:
+          type: number
+        viewAngle:
+          type: number
+        stripId:
+          type: string
     Token:
       title: Token
       type: object
