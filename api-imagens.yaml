@@ -176,26 +176,20 @@ components:
           items:
             type: string
       example:
+        permissions:
+          - assets.analytic:download
         sort: "acquired desc"
         pageSize: 20
         providers:
           - PSScene4Band
-        startAcquiredDate: 2017-06-22T00:00:00.000Z
-        endAcquiredDate: 2017-06-22T00:00:00.000Z
+        startAcquiredDate: 2019-06-21T00:00:00.000Z
+        endAcquiredDate: 2019-07-31T23:59:59.999Z
         wkts:
-          - POLYGON ((-52.36083984375 -6.948238638117006, -52.36083984375 -6.555474602201876, -51.96533203125001 -6.555474602201876, -51.96533203125001 -6.948238638117006, -52.36083984375 -6.948238638117006))
-        startCloudCover: 0.1
-        endCloudCover: 0.4
-        startBlackFill: 0
-        endBlackFill: 1
-        satelliteId: '1018'
-        startGSD: 0
-        endGSD: 3.9
-        stripId: '583548'
-        onlySSO: true
-        ids:
-          - '20200830_120115_79_2277'
-          - '20200930_120115_79_2277'
+          - POLYGON((-47.819366455078125 -22.85719470096962,-47.37510681152344 -22.85719470096962,-47.37510681152344 -22.576608430159975,-47.819366455078125 -22.576608430159975,-47.819366455078125 -22.85719470096962))
+        startCloudCover: 0.0
+        endCloudCover: 1.0
+        startBlackFill: 0.0
+        endBlackFill: 1.0
     Providers:
       title: Fornecedor Imagem
       type: array
