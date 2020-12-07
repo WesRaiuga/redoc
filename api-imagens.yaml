@@ -211,7 +211,7 @@ components:
         assets:
           type: array
           items:
-            $ref: "#/components/schemas/DownloadAssetDTO"
+            $ref: "#/components/schemas/BestFeaturesDTO"
         boundary:
           type: string
           description: Geometria usada para recorte, caso não informado será usado o limite contrato. Em GeoJson.
