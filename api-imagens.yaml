@@ -5,8 +5,8 @@ info:
   description: >
     # Introdução
 
-    Essa API fornece acesso aos serviços de busca de download de imagens fornecidos pela SCCON.
-    Os serviços são autenticados, ou seja, necessitam de um token de segurança para serem acessados.
+    Essa API fornece acesso ao serviço de seleção automática das melhores imagens, retornando os IDs para download.
+    O serviço é autenticado, ou seja, necessita de um token de segurança para ser acessado.
     A obtenção deste token de segurança é realizada através do serviço de autenticação.
 
 
@@ -21,15 +21,15 @@ info:
 tags:
   - name: Token
     description: Fornece o token de acesso para utilizar os demais serviços.
-  - name: Imagens
-    description: Busca de imagens.
+  - name: Melhores Imagens
+    description: Busca dos IDs das melhores imagens.
 x-tagGroups:
   - name: Autenticação
     tags:
       - Token
   - name: Imagens
     tags:
-      - Imagens
+      - Melhores Imagens
 security:
   - JWT Token: []
 paths:
@@ -95,7 +95,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/FeatureListDTO"
+                $ref: "#/components/schemas/BestFeaturesDTO"
         "401":
           description: Não autorizado
 servers:
@@ -202,7 +202,7 @@ components:
       type: array
       enum:
         - PSScene4Band
-    DownloadDTORequest:
+    BestFeaturesDTO:
       type: object
       required:
         - assets
