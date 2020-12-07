@@ -1,0 +1,245 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: API SCCON
+  description: >
+    # Introdução
+
+    Essa API fornece acesso aos serviços de busca de download de imagens fornecidos pela SCCON.
+    Os serviços são autenticados, ou seja, necessitam de um token de segurança para serem acessados.
+    A obtenção deste token de segurança é realizada através do serviço de autenticação.
+
+
+    **Como usar autenticação JWT**<br/>
+    Adicionar header com:<br/>
+    - Chave: 'Authorization'<br/>
+    - Valor : Bearer {access_token}'
+
+  contact:
+    email: plataforma@sccon.com.br
+
+tags:
+  - name: Token
+    description: Fornece o token de acesso para utilizar os demais serviços.
+  - name: Imagens
+    description: Busca de imagens.
+x-tagGroups:
+  - name: Autenticação
+    tags:
+      - Token
+  - name: Imagens
+    tags:
+      - Imagens
+security:
+  - JWT Token: []
+paths:
+  /auth/token:
+    get:
+      tags:
+        - Token
+      summary: Acesso ao token
+      security: []
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"
+              examples:
+                response:
+                  value:
+                    - access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnYW1hYWdyaWN1bHR1cmEuY29tLmJyIiwic3ViIjoid2VzbGV5LnNpbHZhQHNjY29uLmNvbS5iciIsIm5hbWUiOiJXZXNsZXkgU2lsdmEiLCJleHAiOjE1OTg5MDQ3OTQ0NTAsImlhdCI6MTU5ODI5OTk5NDQ1MCwicm9sZXMiOlsiTUFOQUdFX1VTRVJTIiwiR0VORVJBVEVfV01TX1NFTEVDVEVEX0lNQUdFUyIsIkRPV05MT0FEX0lNQUdFX0FOQUxZVElDX1NSIiwiTUFOQUdFX09SR0FOSVpBVElPTlMiLCJHRVRfTU9TQUlDX0xJTksiLCJWSUVXIiwiRE9XTkxPQURfSU1BR0VfVklTVUFMIiwiRVhQRVJUX1BGIiwiRE9XTkxPQURfU1RBVFMiLCJET1dOTE9BRF9SQUFfU0hFRVQiLCJET1dOTE9BRF9JTUFHRV9TSEFQRSIsIkFDQ0VTU19EQVNIQk9BUkRfUEYiLCJET1dOTE9BRF9BTEVSVFMiLCJET1dOTE9BRCIsIk1BTkFHRV9DT05UUkFDVFMiLCJET1dOTE9BRF9JTUFHRV9BTkFMWVRJQyIsIkFVVE9NQVRJQ19XTVMiXX0.kpAJYGTXpWrV_QEnVUvC9soKojw-mLKmnVRsh8itst4
+                      token_type: Bearer
+                      iss: plataforma.sccon.com.br
+                      sub: plataforma@sccon.com.br
+                      name: Usuário do Serviço
+                      exp: 1498742285823
+                      iat: 1498655885823
+                      roles:
+                        - Download
+                        - Search
+        "401":
+          description: Não autorizado
+  /best:
+    post:
+      tags:
+        - Imagens
+      summary: Busca
+      parameters:
+        - name: byClouds
+          in: query
+          description: Usado para informar se a busca será feita usando o parâmetro de nuvens.
+          schema:
+            type: integer
+            default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SceneFilterDTO"
+      responses:
+        "200":
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeatureListDTO"
+        "401":
+          description: Não autorizado
+servers:
+  - url: https://plataforma.sccon.com.br/gama-api
+components:
+  securitySchemes:
+    JWT Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  requestBodies:
+    Token:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Token"
+      required: true
+  schemas:
+    SceneFilterDTO:
+      title: Filtros Imagens
+      type: object
+      required:
+        - sort
+        - pageSize
+        - permissions
+        - providers
+      properties:
+        sort:
+          type: string
+          description: Ordenação do resultado
+        pageSize:
+          type: integer
+        providers:
+          $ref: "#/components/schemas/Providers"
+        startAcquiredDate:
+          type: string
+          description: Valor inicial para pesquisa por data de aquisição da imagem.
+        endAcquiredDate:
+          type: string
+          description: Valor final para pesquisa por data de aquisição da imagem.
+        wkts:
+          type: array
+          description: Geometria para usar como busca.
+          items:
+            type: string
+        startCloudCover:
+          type: number
+          description: Valor inicial para pesquisa por porcentagem de preechimento por nuvem. Valores entre 0 e 1
+        endCloudCover:
+          type: number
+          description: Valor final para pesquisa por porcentagem de preechimento por nuvem. Valores entre 0 e 1
+        startBlackFill:
+          type: number
+          description: Valor inicial para pesquisa por porcentagem da imagem com preenchimento de bit do tipo black fill. Valores entre 0 e 1
+        endBlackFill:
+          type: number
+          description: Valor final para pesquisa por porcentagem da imagem com preenchimento de bit do tipo black fill. Valores entre 0 e 1
+        satelliteId:
+          type: string
+        startGSD:
+          type: number
+          description: Valor inicial para pesquisa por porcentagem de Ground Sample Distance. Valores entre 0 e 1
+        endGSD:
+          type: number
+          description: Valor final para pesquisa por porcentagem de Ground Sample Distance. Valores entre 0 e 1
+        stripId:
+          type: string
+          description: Id da faixa de passagem
+        onlySSO:
+          type: boolean
+          description: Apenas satélites de órbita heliossíncrona
+        ids:
+          type: array
+          items:
+            type: string
+      example:
+        sort: "acquired desc"
+        pageSize: 20
+        providers:
+          - PSScene4Band
+        startAcquiredDate: 2017-06-22T00:00:00.000Z
+        endAcquiredDate: 2017-06-22T00:00:00.000Z
+        wkts:
+          - POLYGON ((-52.36083984375 -6.948238638117006, -52.36083984375 -6.555474602201876, -51.96533203125001 -6.555474602201876, -51.96533203125001 -6.948238638117006, -52.36083984375 -6.948238638117006))
+        startCloudCover: 0.1
+        endCloudCover: 0.4
+        startBlackFill: 0
+        endBlackFill: 1
+        satelliteId: '1018'
+        startGSD: 0
+        endGSD: 3.9
+        stripId: '583548'
+        onlySSO: true
+        ids:
+          - '20200830_120115_79_2277'
+          - '20200930_120115_79_2277'
+    PermissionType:
+      title: Permissão
+      type: array
+      enum:
+        - assets.analytic:download
+    Providers:
+      title: Fornecedor Imagem
+      type: array
+      enum:
+        - PSScene4Band
+    DownloadDTORequest:
+      type: object
+      required:
+        - assets
+        - types
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: "#/components/schemas/DownloadAssetDTO"
+        boundary:
+          type: string
+          description: Geometria usada para recorte, caso não informado será usado o limite contrato. Em GeoJson.
+        types:
+          type: array
+          items:
+            type: string
+            enum:
+              - rgb
+              - red_band
+              - green_band
+              - blue_band
+              - infrared_band
+              - basic
+              - analytic
+              - analytic_sr
+              - visual
+              - shape
+              - udm
+              - udm2
+              - wms_mapproxy
+              - ndvi
+      example:
+        assets:
+          - sceneId: "20200829_143024_73_1061"
+            satelliteType: "PSScene4Band"
+        boundary: "{ \"type\": \"MultiPolygon\", \"coordinates\": [ [ [ [ -59.716487, -7.038351 ], [ -59.716487, -7.034624 ], [ -59.712024, -7.034624 ], [ -59.712024, -7.038351 ], [ -59.716487, -7.038351 ] ] ] ] }"
+        types:
+          - visual
+          - analytic
+          
