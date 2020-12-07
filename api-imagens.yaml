@@ -203,45 +203,109 @@ components:
       enum:
         - PSScene4Band
     BestFeaturesDTO:
+      title: Features
       type: object
-      required:
-        - assets
-        - types
       properties:
-        assets:
+        area:
+          type: number
+        areaCovered:
+          type: number
+        percentCovered:
+          type: number
+        ids:
           type: array
-          items:
-            $ref: "#/components/schemas/BestFeaturesDTO"
-        boundary:
-          type: string
-          description: Geometria usada para recorte, caso não informado será usado o limite contrato. Em GeoJson.
-        types:
-          type: array
+          description: IDs das imagens que serão usados para download
           items:
             type: string
-            enum:
-              - rgb
-              - red_band
-              - green_band
-              - blue_band
-              - infrared_band
-              - basic
-              - analytic
-              - analytic_sr
-              - visual
-              - shape
-              - udm
-              - udm2
-              - wms_mapproxy
-              - ndvi
+        features:
+          type: array
+          items:
+            $ref: "#/components/schemas/FeatureDTO"
+        geometry:
+          type: object
+          description: Geometria em GeoJson
+        geometryCovered:
+          type: object
+          description: Geometria em GeoJson
       example:
+        links:
+          first: "assets/scenes/searches/2d96654a03d9421c9e55d820b65ad6e1/results?_page\u003deyJxdWVyeV9wYXJhbXMiOiB7Il9wYWdlX3NpemUiOiAiMjAiLCAiX3NvcnQiOiAiYWNxdWlyZWQgZGVzYyJ9LCAic29ydF9wcmV2IjogZmFsc2UsICJwYWdlX3NpemUiOiAyMCwgInNvcnRfYnkiOiAiYWNxdWlyZWQiLCAic29ydF9zdGFydCI6IG51bGwsICJzb3J0X2xhc3RfaWQiOiBudWxsLCAic29ydF9kZXNjIjogdHJ1ZX0%3D"
+          next: "assets/scenes/searches/2d96654a03d9421c9e55d820b65ad6e1/results?_page\u003deyJxdWVyeV9wYXJhbXMiOiB7Il9wYWdlX3NpemUiOiAiMjAiLCAiX3NvcnQiOiAiYWNxdWlyZWQgZGVzYyJ9LCAic29ydF9wcmV2IjogZmFsc2UsICJwYWdlX3NpemUiOiAyMCwgInNvcnRfYnkiOiAiYWNxdWlyZWQiLCAic29ydF9zdGFydCI6ICIyMDE3LTA2LTI2VDEzOjAxOjMyLjMwNzI2NloiLCAic29ydF9sYXN0X2lkIjogIjIwMTcwNjI2XzEzMDEzMl8xMDAzIiwgInNvcnRfZGVzYyI6IHRydWV9"
+        features:
+          - id: "20200627_130208_1018"
+            enabledDownload: true
+            links:
+              first: "assets/scenes/searches/2d96654a03d9421c9e55d820b65ad6e1/results?_page\u003deyJxdWVyeV9wYXJhbXMiOiB7Il9wYWdlX3NpemUiOiAiMjAiLCAiX3NvcnQiOiAiYWNxdWlyZWQgZGVzYyJ9LCAic29ydF9wcmV2IjogZmFsc2UsICJwYWdlX3NpemUiOiAyMCwgInNvcnRfYnkiOiAiYWNxdWlyZWQiLCAic29ydF9zdGFydCI6IG51bGwsICJzb3J0X2xhc3RfaWQiOiBudWxsLCAic29ydF9kZXNjIjogdHJ1ZX0%3D"
+              next: "assets/scenes/searches/2d96654a03d9421c9e55d820b65ad6e1/results?_page\u003deyJxdWVyeV9wYXJhbXMiOiB7Il9wYWdlX3NpemUiOiAiMjAiLCAiX3NvcnQiOiAiYWNxdWlyZWQgZGVzYyJ9LCAic29ydF9wcmV2IjogZmFsc2UsICJwYWdlX3NpemUiOiAyMCwgInNvcnRfYnkiOiAiYWNxdWlyZWQiLCAic29ydF9zdGFydCI6ICIyMDE3LTA2LTI2VDEzOjAxOjMyLjMwNzI2NloiLCAic29ydF9sYXN0X2lkIjogIjIwMTcwNjI2XzEzMDEzMl8xMDAzIiwgInNvcnRfZGVzYyI6IHRydWV9"
+            geometry: "{ \"type\": \"Polygon\", \"coordinates\": [ [ [ -52.2370581663976, -6.988069425605272 ], [ -52.464362657581866, -6.942764027451043 ], [ -52.449494587188845, -6.869489317258247 ], [ -52.22280828403941, -6.914693524213432 ], [ -52.224762899115234, -6.924330746448963 ], [ -52.22419009035033, -6.924444984627958 ], [ -52.2370581663976, -6.988069425605272 ] ] ] } }"
+            properties:
+              acquired: "2017-06-27T13:02:08.573185Z"
+              anomalousPixels: 0.0
+              cloudCove:  0.0
+              columns: 8896
+              epsgCod:  32722
+              gsd: 3.9
+              instrument: "PS2"
+              itemTyp:  "PSScene4Band"
+              originX:  338220.0
+              originY:  9240438.0
+              pixelResolutio:  3.0
+              provider: "planetscope"
+              published: "2017-06-28T10:48:09Z"
+              rows: 4350
+              satelliteI:  "1018"
+              sunAzimut:  49.4
+              sunElevatio:  42.5
+              updated: "2017-06-28T10:48:09Z"
+              usableDat:  0.0
+              viewAngl:  1.1
+              stripI:  583548
+            permissions:
+              - "assets.basic_analytic_rpc_nitf:download"
+              - "assets.analytic_xml:download"
+        pageSize: 20
+        requestId: "123e4567-e89b-12d3-a456-426614174000"
+    FeatureDTO:
+      title: Feature
+      type: object
+      properties:
+        id:
+          type: string
+        links:
+          $ref: "#/components/schemas/LinksDTO"
+        geometry:
+          type: string
+          description: Em GeoJson
+        properties:
+          $ref: "#/components/schemas/FeaturePropertiesDTO"
+        permissions:
+          type: array
+          description: Downloads permitidos para a imagem
+          items:
+            type: string
+        enableDownload:
+          type: boolean
+          description: Se a imagem permite download
+    LinksDTO:
+      title: Links
+      type: object
+      properties:
+        thumbnail:
+          type: string
+        tms:
+          type: string
+        first:
+          type: string
+        next:
+          type: string
+        prev:
+          type: string
+        self:
+          type: string
         assets:
-          - sceneId: "20200829_143024_73_1061"
-            satelliteType: "PSScene4Band"
-        boundary: "{ \"type\": \"MultiPolygon\", \"coordinates\": [ [ [ [ -59.716487, -7.038351 ], [ -59.716487, -7.034624 ], [ -59.712024, -7.034624 ], [ -59.712024, -7.038351 ], [ -59.716487, -7.038351 ] ] ] ] }"
-        types:
-          - visual
-          - analytic
+          type: string
+        activate:
+          type: string
     Token:
       title: Token
       type: object
