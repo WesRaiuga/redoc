@@ -75,14 +75,14 @@ paths:
   /best:
     post:
       tags:
-        - Imagens
+        - Melhores Imagens
       summary: Busca
       parameters:
         - name: byClouds
           in: query
           description: Usado para informar se a busca será feita usando o parâmetro de nuvens.
           schema:
-            type: integer
+            type: boolean
             default: false
       requestBody:
         content:
