@@ -2,13 +2,11 @@ openapi: 3.0.0
 info:
   version: "1.0.0"
   title: API SCCON
-  description: >
+  description: >-
     # Introdução
 
     Essa API fornece acesso ao serviço de seleção automática das melhores imagens, retornando os IDs para download.
-
     O serviço é autenticado, ou seja, necessita de um token de segurança para ser acessado.
-
     A obtenção deste token de segurança é realizada através do serviço de autenticação.
 
 
@@ -24,7 +22,7 @@ tags:
   - name: Token
     description: Fornece o token de acesso para utilizar o serviço de busca de imagens.
   - name: Melhores Imagens
-    description: Busca dos IDs das melhores imagens.
+    description: Busca das melhores imagens. No retorno há a propriedade "ids", contendo os IDs das imagens, que deverão ser extraídos, tratados e usados no script de download.
 x-tagGroups:
   - name: Autenticação
     tags:
@@ -78,7 +76,7 @@ paths:
     post:
       tags:
         - Melhores Imagens
-      summary: Buscar imagens
+      summary: Buscar
       parameters:
         - name: byClouds
           in: query
