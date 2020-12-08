@@ -6,7 +6,9 @@ info:
     # Introdução
 
     Essa API fornece acesso ao serviço de seleção automática das melhores imagens, retornando os IDs para download.
+
     O serviço é autenticado, ou seja, necessita de um token de segurança para ser acessado.
+
     A obtenção deste token de segurança é realizada através do serviço de autenticação.
 
 
@@ -20,8 +22,8 @@ info:
 
 tags:
   - name: Token
-    description: Fornece o token de acesso para utilizar os demais serviços.
-  - name: Imagens
+    description: Fornece o token de acesso para utilizar o serviço de busca de imagens.
+  - name: Melhores Imagens
     description: Busca dos IDs das melhores imagens.
 x-tagGroups:
   - name: Autenticação
@@ -29,7 +31,7 @@ x-tagGroups:
       - Token
   - name: Imagens
     tags:
-      - Imagens
+      - Melhores Imagens
 security:
   - JWT Token: []
 paths:
@@ -75,8 +77,8 @@ paths:
   /assets/best:
     post:
       tags:
-        - Imagens
-      summary: Busca
+        - Melhores Imagens
+      summary: Buscar imagens
       parameters:
         - name: byClouds
           in: query
@@ -99,7 +101,7 @@ paths:
         "400":
           description: Solicitação inválida
         "401":
-          description: Não autorizado / não autenticado
+          description: Não autorizado
         "403":
           description: Proibido
 servers:
@@ -240,21 +242,6 @@ components:
           - '20190724_125156_0e16'
           - '20190724_125155_0e16'
           - '20190720_130007_0f31'
-          - '20190720_130005_0f31'
-          - '20190720_130004_0f31'
-          - '20190720_125011_0e16'
-          - '20190720_125010_0e16'
-          - '20190720_125009_0e16'
-          - '20190718_130006_100a'
-          - '20190713_125727_1021'
-          - '20190713_125726_1021'
-          - '20190707_130034_0f36'
-          - '20190706_125851_100e'
-          - '20190706_125850_100e'
-          - '20190706_125849_100e'
-          - '20190706_125848_100e'
-          - '20190706_125847_100e'
-          - '20190706_125846_100e'
         features:
           - id: "20190729_125803_1020"
             properties:
